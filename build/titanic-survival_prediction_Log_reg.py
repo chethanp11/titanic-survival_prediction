@@ -149,15 +149,11 @@ X_test = test
 #==============================================================================
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
 
-#model = LogisticRegression()
-model = RandomForestClassifier()
+model = LogisticRegression()
 
-#model.fit(X_train, y_train)
 model.fit(X_train, y_train)
 
-#y_pred = model.predict(X_train)
 y_pred = model.predict(X_train)
 
 #%%==============================================================================
@@ -175,10 +171,8 @@ confusion_matrix(y_train, y_pred)
 # # Predict Test Data
 #==============================================================================
 
-#y_pred = model.predict(X_test.drop('PassengerId', axis=1))
 y_pred = model.predict(X_test.drop('PassengerId', axis=1))
 
-#test['Survived'] = model.predict(X_test.drop('PassengerId', axis=1))
 test['Survived'] = model.predict(X_test.drop('PassengerId', axis=1))
 
 X_test['PassengerId', 'Survived'].to_csv('output.csv', encoding='utf-8', index=False)
