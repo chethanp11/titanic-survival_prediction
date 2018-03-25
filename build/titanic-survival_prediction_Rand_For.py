@@ -17,7 +17,7 @@ import seaborn as sns
 
 import os
 print(os.getcwd()) #know the current working dir
-os.chdir("D:\Knowledge\github\titanic-survival_prediction\data") #set working dir
+os.chdir("D:\\Knowledge\\github\\titanic-survival_prediction\\data") #set working dir
 print(os.getcwd())
    
 #%%==============================================================================
@@ -145,24 +145,18 @@ y_train = train['Survived']
 X_test = test
 
 #%%==============================================================================
-# # Logistic regression Model
+# # Random Forest Classifier
 #==============================================================================
 
-from sklearn.linear_model import LogisticRegression
 
-model = LogisticRegression()
+from sklearn.ensemble import RandomForestClassifier
+
+
+model = RandomForestClassifier()
 
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_train)
-
-y_pred.summary()
-
-y_pred2 = model.predict(X_test.drop('PassengerId', axis=1))
-
-test['Survived'] = model.predict(X_test.drop('PassengerId', axis=1))
-
-X_test.to_csv('output.csv', encoding='utf-8', index=False)
 
 #%%==============================================================================
 # # Model Validation
@@ -175,3 +169,13 @@ print(classification_report(y_train, y_pred))
 
 confusion_matrix(y_train, y_pred)
 
+#%%==============================================================================
+# # Predict Test Data
+#==============================================================================
+
+
+y_pred = model.predict(X_test.drop('PassengerId', axis=1))
+
+test['Survived'] = model.predict(X_test.drop('PassengerId', axis=1))
+
+X_test[['PassengerId', 'Survived']].to_csv('output.csv', encoding='utf-8', index=False)
